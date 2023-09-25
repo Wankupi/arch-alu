@@ -49,7 +49,7 @@ module adder(
         output wire[15:0] sum,
         output wire carry
     );
-	wire zero = 0;
+    wire zero = 0;
     adder16 adder_impl(
                 .a(a),
                 .b(b),
@@ -62,9 +62,12 @@ endmodule
 module Add(
         input wire[31:0] a,
         input wire[31:0] b,
-        output wire[31:0] sum
+        output reg[31:0] sum
     );
     wire zero = 0;
-	wire x;
-    adder32 adder_impl(a, b, zero, sum, x);
+    wire [31:0] res;
+    adder32 adder_impl(a, b, zero, res, null);
+    always @* begin
+        sum <= res;
+    end
 endmodule
